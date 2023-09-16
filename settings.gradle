@@ -1,0 +1,5 @@
+rootProject.name = 'bounded-context-integration'
+include('app')
+include 'redisson'
+include 'rpc'
+
