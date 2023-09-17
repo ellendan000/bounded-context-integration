@@ -11,6 +11,10 @@ logging:
         web:
           servlet:
             DispatcherServlet: DEBUG
-spring:
-  application:
-    name: rpc-app
+  redis:
+    database: local
+    host: 127.0.0.1
+    port: 6379
+    timeout: 3000
+    connectTimeout: 10000
+#    clientName:

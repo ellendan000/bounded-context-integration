@@ -1,6 +1,12 @@
 dependencies {
     implementation platform(platformBom)
+    compileOnly platform(platformBom)
+    annotationProcessor platform(platformBom)
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.redisson:redisson:3.23.4'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.redisson:redisson-spring-boot-starter:3.16.5'
+
+    compileOnly "org.projectlombok:lombok"
+    annotationProcessor "org.projectlombok:lombok"
 }

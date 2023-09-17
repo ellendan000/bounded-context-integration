@@ -1,4 +1,4 @@
-package top.bujiaban.order.client;
+package top.bujiaban.order.infrastructure.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
