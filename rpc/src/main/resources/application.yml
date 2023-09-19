@@ -30,6 +30,5 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
         physical_naming_strategy: io.hypersistence.utils.hibernate.naming.CamelCaseToSnakeCaseNamingStrategy
-
   flyway:
     enabled: true
