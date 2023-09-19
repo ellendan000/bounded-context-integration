@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.bujiaban.order.infrastructure.client.InventoryFeignClient;
-import top.bujiaban.order.domain.ProductInventory;
+import top.bujiaban.order.domain.ProductStorage;
 
 @RestController
 @RequestMapping("/orders")
@@ -17,7 +17,7 @@ public class OrderController {
     }
 
     @GetMapping
-    ProductInventory initInventoryCount(@RequestParam("productId") String productId) {
+    ProductStorage initInventoryCount(@RequestParam("productId") String productId) {
         return inventoryFeignClient.fetchLatestCount(productId);
     }
 }
