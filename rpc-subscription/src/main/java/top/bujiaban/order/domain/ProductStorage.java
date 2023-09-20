@@ -1,4 +1,4 @@
-package bujiaban.inventory;
+package top.bujiaban.order.domain;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,9 +7,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class ProductInventoryResponse {
+public class ProductStorage {
     private String productId;
-    private LocalDateTime createdTime;
     private LocalDateTime lastModifiedTime;
-    private Integer count;
+    private Integer quantity;
 }

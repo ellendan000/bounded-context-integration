@@ -1,4 +1,4 @@
-package bujiaban;
+package top.bujiaban;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
@@ -6,9 +6,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients
 @SpringCloudApplication
-public class RpcApp {
+public class RpcSubscriptionApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(RpcApp.class, args);
+        SpringApplication.run(RpcSubscriptionApp.class, args);
     }
 }
