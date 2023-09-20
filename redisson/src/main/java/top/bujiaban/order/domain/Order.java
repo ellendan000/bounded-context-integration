@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Entity
-@Table(name="redisson_order")
+@Table(name = "product_order")
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)

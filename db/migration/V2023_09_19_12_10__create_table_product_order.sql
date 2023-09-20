@@ -1,4 +1,4 @@
-create table `rpc_order`(
+create table `product_order`(
     id varchar(36) primary key,
     product_id varchar(36) not null,
     quantity int not null default 1,

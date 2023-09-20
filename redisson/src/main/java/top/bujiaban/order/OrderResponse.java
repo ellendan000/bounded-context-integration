@@ -13,15 +13,13 @@ public class OrderResponse {
     private String productId;
     private Integer quantity;
     private LocalDateTime createdTime;
-    private Long remainStorageCount;
 
-    public static OrderResponse fromEntity(Order order, Long remainStorageCount) {
+    public static OrderResponse fromEntity(Order order) {
         return OrderResponse.builder()
                 .id(order.getId())
                 .productId(order.getProductId())
                 .quantity(order.getQuantity())
                 .createdTime(order.getCreatedTime())
-                .remainStorageCount(remainStorageCount)
                 .build();
     }
 }

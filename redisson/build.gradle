@@ -12,7 +12,6 @@ dependencies {
     }
     implementation 'io.hypersistence:hypersistence-utils-hibernate-52:3.5.2'
     implementation 'mysql:mysql-connector-java'
-    implementation 'org.flywaydb:flyway-core'
     implementation 'org.apache.tomcat:tomcat-jdbc'
 
     compileOnly 'org.projectlombok:lombok'
