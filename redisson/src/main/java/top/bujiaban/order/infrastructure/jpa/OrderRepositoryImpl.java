@@ -1,4 +1,4 @@
-package top.bujiaban.order.infrastructure.repository;
+package top.bujiaban.order.infrastructure.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

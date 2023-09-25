@@ -1,7 +1,10 @@
 package top.bujiaban.order.appservice;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
 import org.redisson.api.*;
+import org.redisson.codec.AvroJacksonCodec;
+import org.redisson.codec.JsonJacksonCodec;
 import org.springframework.stereotype.Service;
 import top.bujiaban.order.infrastructure.client.InventoryFeignClient;
 import top.bujiaban.order.domain.Order;
@@ -9,6 +12,7 @@ import top.bujiaban.order.domain.OrderRepository;
 import top.bujiaban.order.domain.ProductStorage;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -16,9 +20,9 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 public class OrderApplicationService {
-    private InventoryFeignClient inventoryFeignClient;
-    private RedissonClient redissonClient;
-    private OrderRepository orderRepository;
+    private final InventoryFeignClient inventoryFeignClient;
+    private final RedissonClient redissonClient;
+    private final OrderRepository orderRepository;
 
     public OrderApplicationService(InventoryFeignClient inventoryFeignClient, RedissonClient redissonClient,
                                    OrderRepository orderRepository) {
@@ -46,19 +50,25 @@ public class OrderApplicationService {
                 .build();
         try {
             newOrder = orderRepository.save(newOrder);
+            RList<Order> newOrderCache = redissonClient.getList(
+                    redisCacheKey(newOrder.getProductId(), null));
+            if(newOrderCache.isEmpty()){
+                newOrderCache.expire(3, TimeUnit.DAYS);
+            }
+            newOrderCache.add(newOrder);
         } catch (Exception e){
             log.error(e.getMessage(), e);
             count.getAndAdd(order.getQuantity());
             throw e;
         }
-        RQueue<Order> newOrderCache = redissonClient.getQueue(redisCacheKey(newOrder.getProductId()));
-        newOrderCache.add(newOrder);
         return newOrder;
     }
 
-    public List<Order> getCacheOrders(String productId, Integer limit) {
-        RQueue<Order> newOrderCache =  redissonClient.getQueue(redisCacheKey(productId));
-        return newOrderCache.poll(limit);
+    public List<Order> getCacheOrders(String productId, Long timestamp, Integer pageNo, Integer pageSize) {
+        RList<Order> ordersCache =  redissonClient.getList(redisCacheKey(productId, timestamp));
+
+        Pair<Integer, Integer> fromToIndex = fromToIndex(pageNo, pageSize);
+        return ordersCache.range(fromToIndex.getLeft(), fromToIndex.getRight());
     }
 
     private void initInventoryCount(String productId) {
@@ -75,7 +85,17 @@ public class OrderApplicationService {
         writeLock.unlock();
     }
 
-    private String redisCacheKey(String productId) {
-        return "order-" + productId + "-" + Instant.now().toEpochMilli();
+    private String redisCacheKey(String productId, Long timestamp) {
+        if(timestamp == null) {
+            timestamp = Instant.now().truncatedTo(ChronoUnit.DAYS).toEpochMilli();
+        }
+        return "order-" + productId + "-" + timestamp;
     }
+
+    private Pair<Integer, Integer> fromToIndex(Integer pageNo, Integer pageSize) {
+        Integer fromIndex = (pageNo - 1) * pageSize;
+        Integer toIndex = pageNo * pageSize - 1;
+        return Pair.of(fromIndex, toIndex);
+    }
+
 }

@@ -3,32 +3,47 @@ package top.bujiaban.inventory.appservice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.bujiaban.inventory.domain.InventoryOrder;
-import top.bujiaban.inventory.domain.InventoryOrderRepository;
-import top.bujiaban.inventory.domain.ProductStorage;
-import top.bujiaban.inventory.domain.ProductStorageRepository;
+import top.bujiaban.inventory.domain.*;
 import top.bujiaban.inventory.infrastructure.client.OrderFeignClient;
+import top.bujiaban.inventory.infrastructure.client.SubscribeOrderRequest;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @Service
 public class MinusStorageApplicationService {
-    private InventoryOrderRepository inventoryOrderRepository;
-    private ProductStorageRepository productStorageRepository;
-    private OrderFeignClient orderFeignClient;
+    private final InventoryOrderRepository inventoryOrderRepository;
+    private final ProductStorageRepository productStorageRepository;
+    private final SubscribeOrderTaskRepository subscribeOrderTaskRepository;
+    private final OrderFeignClient orderFeignClient;
 
     public MinusStorageApplicationService(InventoryOrderRepository inventoryOrderRepository,
                                           ProductStorageRepository productStorageRepository,
+                                          SubscribeOrderTaskRepository subscribeOrderTaskRepository,
                                           OrderFeignClient orderFeignClient) {
         this.inventoryOrderRepository = inventoryOrderRepository;
         this.productStorageRepository = productStorageRepository;
+        this.subscribeOrderTaskRepository = subscribeOrderTaskRepository;
         this.orderFeignClient = orderFeignClient;
     }
 
     @Transactional(rollbackFor = Throwable.class)
     public ProductStorage minusStorageByOrders(String productId) {
-        List<InventoryOrder> orderList = orderFeignClient.subscribeNewOrders(productId, 20);
+        SubscribeOrderTask subscribeOrderTask = subscribeOrderTaskRepository.findByProductId(productId);
+        if(subscribeOrderTask == null) {
+            subscribeOrderTask = SubscribeOrderTask.builder()
+                    .productId(productId)
+                    .timestamp(Instant.now().truncatedTo(ChronoUnit.DAYS).toEpochMilli())
+                    .currentPage(1)
+                    .pageSize(100)
+                    .build();
+        }
+
+        List<InventoryOrder> orderList = orderFeignClient.subscribeNewOrders(SubscribeOrderRequest
+                .fromEntity(subscribeOrderTask));
         inventoryOrderRepository.saveAll(orderList);
 
         int needMinusCount = orderList.stream()
@@ -43,6 +58,9 @@ public class MinusStorageApplicationService {
         Integer oldQuantity = existsProductStorage.getQuantity();
         existsProductStorage.setQuantity(oldQuantity - needMinusCount);
         existsProductStorage = productStorageRepository.saveAndFlush(existsProductStorage);
+
+        subscribeOrderTask.setCurrentPage(subscribeOrderTask.getCurrentPage() + 1);
+        subscribeOrderTaskRepository.save(subscribeOrderTask);
         return existsProductStorage;
     }
 }

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/orders")
 public class OrderController {
 
-    private OrderApplicationService orderApplicationService;
+    private final OrderApplicationService orderApplicationService;
 
     public OrderController(OrderApplicationService orderApplicationService) {
         this.orderApplicationService = orderApplicationService;
@@ -23,14 +23,5 @@ public class OrderController {
         Order order = request.toEntity();
         order = this.orderApplicationService.createOrder(order);
         return OrderResponse.fromEntity(order);
-    }
-
-    @GetMapping
-    List<OrderResponse> subscribeNewOrders(@RequestParam String productId, @RequestParam Integer limit) {
-        return Objects.requireNonNull(
-                orderApplicationService.getCacheOrders(productId, limit))
-                .stream()
-                .map(OrderResponse::fromEntity)
-                .collect(Collectors.toList());
     }
 }

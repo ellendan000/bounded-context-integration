@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table
+@Table(name = "i_product_storage")
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class ProductStorage {
