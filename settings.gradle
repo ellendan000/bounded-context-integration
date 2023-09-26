@@ -3,4 +3,5 @@ include('app')
 include 'redisson'
 include 'rpc'
 include 'rpc-subscription'
+include 'mq-subscription'
 

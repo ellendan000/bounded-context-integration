@@ -1,6 +1,7 @@
 package top.bujiaban.order.appservice;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.redisson.api.RAtomicLong;
 import org.redisson.api.RLock;
 import org.redisson.api.RReadWriteLock;
@@ -8,6 +9,7 @@ import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 import top.bujiaban.order.domain.Order;
 import top.bujiaban.order.domain.OrderRepository;
+import top.bujiaban.order.domain.OrderStatus;
 import top.bujiaban.order.domain.ProductStorage;
 import top.bujiaban.order.infrastructure.client.InventoryFeignClient;
 
@@ -20,35 +22,39 @@ public class OrderApplicationService {
     private final InventoryFeignClient inventoryFeignClient;
     private final RedissonClient redissonClient;
     private final OrderRepository orderRepository;
+    private final OrderFactory orderFactory;
+    private final DomainEventPublisher domainEventPublisher;
 
     public OrderApplicationService(InventoryFeignClient inventoryFeignClient, RedissonClient redissonClient,
-                                   OrderRepository orderRepository) {
+                                   OrderRepository orderRepository, OrderFactory orderFactory,
+                                   DomainEventPublisher domainEventPublisher) {
         this.inventoryFeignClient = inventoryFeignClient;
         this.redissonClient = redissonClient;
         this.orderRepository = orderRepository;
+        this.orderFactory = orderFactory;
+        this.domainEventPublisher = domainEventPublisher;
     }
 
-    public Order createOrder(Order order) {
-        RAtomicLong count = redissonClient.getAtomicLong("product-" + order.getProductId());
+    public Order createOrder(OrderCreateCommand orderCommand) {
+        RAtomicLong count = redissonClient.getAtomicLong("product-" + orderCommand.getProductId());
         if(count.get() == 0) {
-            this.initInventoryCount(order.getProductId());
+            this.initInventoryCount(orderCommand.getProductId());
         }
-        count = redissonClient.getAtomicLong("product-" + order.getProductId());
-        Long remainCount = count.addAndGet(order.getQuantity() * -1L);
+        count = redissonClient.getAtomicLong("product-" + orderCommand.getProductId());
+        Long remainCount = count.addAndGet(orderCommand.getQuantity() * -1L);
         if(remainCount < 0) {
-            count.getAndAdd(order.getQuantity());
+            count.getAndAdd(orderCommand.getQuantity());
             throw new RuntimeException("over quantity");
         }
+
+        Order newOrder = orderFactory.createOrderFromCommand(orderCommand);
         try {
-            Order newOrder = Order.builder()
-                    .id(UUID.randomUUID().toString())
-                    .productId(order.getProductId())
-                    .quantity(order.getQuantity())
-                    .build();
-            return orderRepository.save(newOrder);
+            newOrder = orderRepository.save(newOrder);
+            domainEventPublisher.publish(newOrder.getEvent());
+            return newOrder;
         } catch (Exception e){
             log.error(e.getMessage(), e);
-            count.getAndAdd(order.getQuantity());
+            count.getAndAdd(orderCommand.getQuantity());
             throw e;
         }
     }

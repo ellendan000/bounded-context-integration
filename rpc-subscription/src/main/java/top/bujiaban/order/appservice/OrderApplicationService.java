@@ -3,8 +3,6 @@ package top.bujiaban.order.appservice;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.redisson.api.*;
-import org.redisson.codec.AvroJacksonCodec;
-import org.redisson.codec.JsonJacksonCodec;
 import org.springframework.stereotype.Service;
 import top.bujiaban.order.infrastructure.client.InventoryFeignClient;
 import top.bujiaban.order.domain.Order;

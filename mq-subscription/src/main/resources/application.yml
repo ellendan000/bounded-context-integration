@@ -1,0 +1,40 @@
+server:
+  port: 8081
+
+logging:
+  level:
+    com:
+      netflix:
+        hystrix: DEBUG
+    org:
+      springframework:
+        web:
+          servlet:
+            DispatcherServlet: DEBUG
+spring:
+  redis:
+    redisson:
+      file: classpath:redisson.yml
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/test"
+    username: root
+    tomcat:
+      validation-query: "SELECT 1"
+      initial-size: 5
+      max-active: 20
+      max-wait: 1000
+      min-idle: 10
+      test-on-borrow: true
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQLDialect
+          physical_naming_strategy: io.hypersistence.utils.hibernate.naming.CamelCaseToSnakeCaseNamingStrategy
+
+rocketmq:
+  name-server: "localhost:9876"
+  producer:
+    group: order-producer-group
+    sendMessageTimeout: 300000
+    tls-enable: false
