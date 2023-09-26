@@ -1,9 +1,9 @@
-package top.bujiaban.rpc.inventory.infrastructure.repository;
+package top.bujiaban.redisson.inventory.infrastructure.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import top.bujiaban.rpc.inventory.domain.ProductStorage;
-import top.bujiaban.rpc.inventory.domain.ProductStorageRepository;
+import top.bujiaban.redisson.inventory.domain.ProductStorage;
+import top.bujiaban.redisson.inventory.domain.ProductStorageRepository;
 
 import java.util.Optional;
 

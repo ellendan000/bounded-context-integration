@@ -1,8 +1,8 @@
-package top.bujiaban.rpc.order;
+package top.bujiaban.redisson.order;
 
 import lombok.Builder;
 import lombok.Data;
-import top.bujiaban.rpc.order.domain.Order;
+import top.bujiaban.redisson.order.domain.Order;
 
 import java.time.LocalDateTime;
 

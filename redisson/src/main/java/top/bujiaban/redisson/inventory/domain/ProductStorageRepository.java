@@ -1,4 +1,4 @@
-package top.bujiaban.rpc.inventory.domain;
+package top.bujiaban.redisson.inventory.domain;
 
 import java.util.Optional;
 

@@ -1,8 +1,8 @@
-package top.bujiaban.rpc.order;
+package top.bujiaban.redisson.order;
 
 import org.springframework.web.bind.annotation.*;
-import top.bujiaban.rpc.order.appservice.OrderApplicationService;
-import top.bujiaban.rpc.order.domain.Order;
+import top.bujiaban.redisson.order.appservice.OrderApplicationService;
+import top.bujiaban.redisson.order.domain.Order;
 
 @RestController
 @RequestMapping("/orders")

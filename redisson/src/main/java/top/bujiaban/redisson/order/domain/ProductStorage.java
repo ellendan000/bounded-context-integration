@@ -1,4 +1,4 @@
-package top.bujiaban.rpc.order.domain;
+package top.bujiaban.redisson.order.domain;
 
 import lombok.Builder;
 import lombok.Data;

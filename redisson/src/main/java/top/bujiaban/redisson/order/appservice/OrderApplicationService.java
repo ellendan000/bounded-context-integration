@@ -1,4 +1,4 @@
-package top.bujiaban.rpc.order.appservice;
+package top.bujiaban.redisson.order.appservice;
 
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RAtomicLong;
@@ -6,10 +6,10 @@ import org.redisson.api.RLock;
 import org.redisson.api.RReadWriteLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
-import top.bujiaban.rpc.order.domain.Order;
-import top.bujiaban.rpc.order.domain.OrderRepository;
-import top.bujiaban.rpc.order.domain.ProductStorage;
-import top.bujiaban.rpc.order.infrastructure.client.InventoryFeignClient;
+import top.bujiaban.redisson.order.domain.Order;
+import top.bujiaban.redisson.order.domain.OrderRepository;
+import top.bujiaban.redisson.order.domain.ProductStorage;
+import top.bujiaban.redisson.order.infrastructure.client.InventoryFeignClient;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;

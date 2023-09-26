@@ -1,4 +1,4 @@
-package top.bujiaban.rpc;
+package top.bujiaban.redisson;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
