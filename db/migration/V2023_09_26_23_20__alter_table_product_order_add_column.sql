@@ -1,0 +1,1 @@
+alter table o_product_order add column order_status varchar(40) not null;
