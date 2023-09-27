@@ -1,4 +1,4 @@
-package top.bujiaban.mqsub.inventory.infrastructure.repository;
+package top.bujiaban.mqsub.inventory.infrastructure.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

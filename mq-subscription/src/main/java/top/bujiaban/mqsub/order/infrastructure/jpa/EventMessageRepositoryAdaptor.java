@@ -9,20 +9,20 @@ import java.util.Optional;
 
 @Slf4j
 @Repository
-public class EventMessageRepositoryAdapter implements EventMessageRepository {
+public class EventMessageRepositoryAdaptor implements EventMessageRepository {
     private final JpaEventMessageRepository jpaMessageRepository;
 
-    public EventMessageRepositoryAdapter(JpaEventMessageRepository jpaMessageRepository) {
+    public EventMessageRepositoryAdaptor(JpaEventMessageRepository jpaMessageRepository) {
         this.jpaMessageRepository = jpaMessageRepository;
     }
 
     @Override
-    public void save(EventMessage<?> message) {
+    public void save(EventMessage message) {
         jpaMessageRepository.save(message);
     }
 
     @Override
-    public Optional<EventMessage<?>> findById(Long id) {
+    public Optional<EventMessage> findById(Long id) {
         return jpaMessageRepository.findById(id);
     }
 }

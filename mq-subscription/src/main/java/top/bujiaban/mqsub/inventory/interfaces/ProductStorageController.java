@@ -1,4 +1,4 @@
-package top.bujiaban.mqsub.inventory;
+package top.bujiaban.mqsub.inventory.interfaces;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

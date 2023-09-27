@@ -1,4 +1,4 @@
-package top.bujiaban.mqsub.order.domain;
+package top.bujiaban.mqsub.inventory.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
@@ -14,7 +14,4 @@ public class OrderCreatedEvent implements DomainEvent<String> {
     private LocalDateTime occurrenceOn;
     private String productId;
     private Integer quantity;
-    public Boolean needRemoteSent(){
-        return true;
-    }
 }

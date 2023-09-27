@@ -1,4 +1,4 @@
-package top.bujiaban.mqsub.order;
+package top.bujiaban.mqsub.order.interfaces;
 
 import lombok.Builder;
 import lombok.Data;

@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Service
 public class OrderFactory {
-    public Pair<Order, EventMessage<OrderCreatedEvent>> createOrderFromCommand(OrderCreateCommand command) {
+    public Pair<Order, OrderCreatedEvent> createOrderFromCommand(OrderCreateCommand command) {
         Order newOrder = Order.builder()
                 .id(UUID.randomUUID().toString())
                 .productId(command.getProductId())
@@ -23,16 +23,11 @@ public class OrderFactory {
 
         OrderCreatedEvent orderCreatedEvent = OrderCreatedEvent.builder()
                 .aggregationId(newOrder.getId())
-                .createdTime(newOrder.getCreatedTime())
+                .occurrenceOn(newOrder.getCreatedTime())
                 .productId(newOrder.getProductId())
                 .quantity(newOrder.getQuantity())
                 .build();
 
-        EventMessage<OrderCreatedEvent> eventMessage = EventMessage.<OrderCreatedEvent>builder()
-                .aggregationId(newOrder.getId())
-                .content(orderCreatedEvent)
-                .status(EventMessage.Status.CREATED)
-                .build();
-        return Pair.of(newOrder, eventMessage);
+        return Pair.of(newOrder, orderCreatedEvent);
     }
 }

@@ -1,4 +1,4 @@
-package top.bujiaban.mqsub.order;
+package top.bujiaban.mqsub.order.interfaces;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

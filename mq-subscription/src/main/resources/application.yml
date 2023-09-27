@@ -40,3 +40,5 @@ rocketmq:
     group: order-producer-group
     sendMessageTimeout: 300000
     tls-enable: false
+  consumer:
+    tlsEnable: false

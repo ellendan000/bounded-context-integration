@@ -45,7 +45,7 @@ public class OrderApplicationService {
             throw new RuntimeException("over quantity");
         }
 
-        Pair<Order, EventMessage<OrderCreatedEvent>> newOrderPair = orderFactory.createOrderFromCommand(orderCommand);
+        Pair<Order, OrderCreatedEvent> newOrderPair = orderFactory.createOrderFromCommand(orderCommand);
         try {
             Order newOrder = orderRepository.save(newOrderPair.getLeft());
             domainEventPublisher.publish(newOrderPair.getRight());

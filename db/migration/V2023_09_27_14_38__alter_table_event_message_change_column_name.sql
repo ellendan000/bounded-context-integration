@@ -1,0 +1,1 @@
+alter table o_event_message rename column `content` to `data`;

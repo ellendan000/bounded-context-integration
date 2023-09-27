@@ -1,0 +1,1 @@
+alter table i_consumed_message drop column `data`;
