@@ -1,0 +1,1 @@
+alter table i_product_storage add column `version` int not null after `id`;

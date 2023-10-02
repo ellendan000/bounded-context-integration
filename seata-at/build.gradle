@@ -5,17 +5,20 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-    implementation 'org.apache.rocketmq:rocketmq-spring-boot-starter:2.2.3'
 
-    implementation 'org.redisson:redisson-spring-boot-starter:3.16.5'
 //    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
-
-    implementation('org.springframework.boot:spring-boot-starter-data-jpa') {
-        exclude(group: 'com.zaxxer', module: 'HikariCP')
+//    implementation 'com.alibaba:druid-spring-boot-starter:1.2.9'
+//    implementation 'io.seata:seata-spring-boot-starter:1.5.2'
+    implementation 'com.alibaba.cloud:spring-cloud-alibaba-commons:2021.0.4.0'
+    implementation('com.alibaba.cloud:spring-cloud-starter-alibaba-seata:2021.0.4.0'){
+//        exclude(group: 'io.seata', module: 'seata-all')
+//        exclude(group: 'io.seata', module: 'seata-spring-boot-starter')
     }
+//    implementation 'io.seata:seata-all:1.5.2'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'io.hypersistence:hypersistence-utils-hibernate-52:3.5.2'
     implementation 'mysql:mysql-connector-java'
-    implementation 'org.apache.tomcat:tomcat-jdbc'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

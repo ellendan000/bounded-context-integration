@@ -1,5 +1,6 @@
-package top.bujiaban.mqsub.inventory.domain;
+package top.bujiaban.seataat.inventory.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -22,7 +23,14 @@ public class ProductStorage {
     private String productId;
     private Integer quantity;
     @CreatedDate
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private LocalDateTime createdTime;
     @LastModifiedDate
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private LocalDateTime lastModifiedTime;
+
+    public ProductStorage minusStorage(Integer quantity) {
+        this.quantity -= quantity;
+        return this;
+    }
 }

@@ -1,5 +1,8 @@
-package top.bujiaban.mqsub.inventory.domain;
+package top.bujiaban.seataat.order.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -10,19 +13,21 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 @Entity
-@Table(name = "i_product_storage")
+@Table(name = "o_product_order")
 @NoArgsConstructor
+@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class ProductStorage {
+public class Order {
     @Id
     private String id;
-    @Version
-    private Integer version;
     private String productId;
     private Integer quantity;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
     @CreatedDate
     private LocalDateTime createdTime;
     @LastModifiedDate
-    private LocalDateTime lastModifiedTime;
+    private LocalDateTime LastModifiedTime;
 }

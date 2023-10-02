@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 public class OrderCreatedEvent implements DomainEvent<String> {
     private String aggregationId;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private LocalDateTime occurrenceOn;
     private String productId;
     private Integer quantity;
