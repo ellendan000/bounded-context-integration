@@ -12,6 +12,8 @@ logging:
           servlet:
             DispatcherServlet: DEBUG
 spring:
+  application:
+    name: mqsub-app
   jackson:
     serialization:
       write_dates_as_timestamps: false

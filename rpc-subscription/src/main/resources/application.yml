@@ -12,6 +12,8 @@ logging:
           servlet:
             DispatcherServlet: DEBUG
 spring:
+  application:
+    name: rpcsub-app
   redis:
     redisson:
       file: classpath:redisson.yml

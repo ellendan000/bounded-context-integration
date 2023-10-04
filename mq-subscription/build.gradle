@@ -2,10 +2,12 @@ dependencies {
     implementation platform(platformBom)
     compileOnly platform(platformBom)
     annotationProcessor platform(platformBom)
+    implementation project(':common')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.apache.rocketmq:rocketmq-spring-boot-starter:2.2.3'
+    implementation 'org.springframework.retry:spring-retry'
 
     implementation 'org.redisson:redisson-spring-boot-starter:3.16.5'
 //    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'

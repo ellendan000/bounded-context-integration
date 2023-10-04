@@ -3,8 +3,9 @@ package top.bujiaban.rpcsub.inventory.appservice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.bujiaban.inventory.domain.*;
-import top.bujiaban.rpc.inventory.domain.*;
+import top.bujiaban.common.inventory.domain.ProductStorage;
+import top.bujiaban.common.inventory.domain.ProductStorageRepository;
+import top.bujiaban.rpcsub.inventory.domain.*;
 import top.bujiaban.rpcsub.inventory.infrastructure.client.OrderFeignClient;
 import top.bujiaban.rpcsub.inventory.infrastructure.client.SubscribeOrderRequest;
 
@@ -58,7 +59,7 @@ public class MinusStorageApplicationService {
 
         Integer oldQuantity = existsProductStorage.getQuantity();
         existsProductStorage.setQuantity(oldQuantity - needMinusCount);
-        existsProductStorage = productStorageRepository.saveAndFlush(existsProductStorage);
+        existsProductStorage = productStorageRepository.save(existsProductStorage);
 
         subscribeOrderTask.setCurrentPage(subscribeOrderTask.getCurrentPage() + 1);
         subscribeOrderTaskRepository.save(subscribeOrderTask);

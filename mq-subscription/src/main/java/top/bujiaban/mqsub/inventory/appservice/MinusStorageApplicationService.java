@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.bujiaban.common.inventory.domain.ProductStorage;
+import top.bujiaban.common.inventory.domain.ProductStorageRepository;
 import top.bujiaban.mqsub.inventory.domain.*;
 import top.bujiaban.mqsub.inventory.interfaces.EventMessage;
 import java.util.Optional;
@@ -43,7 +45,7 @@ public class MinusStorageApplicationService {
 
                 Integer oldQuantity = existsProductStorage.getQuantity();
                 existsProductStorage.setQuantity(oldQuantity - orderCreatedEvent.getQuantity());
-                productStorageRepository.saveAndFlush(existsProductStorage);
+                productStorageRepository.save(existsProductStorage);
                 consumedMessageRepository.save(paired.getLeft());
                 break;
             } catch (Exception e) {

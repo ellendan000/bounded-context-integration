@@ -18,6 +18,8 @@ logging:
             sql:
               BasicBinder: TRACE
 spring:
+  application:
+    name: redisson-app
   redis:
     host: 127.0.0.1
     port: 6379

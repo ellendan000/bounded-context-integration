@@ -3,8 +3,8 @@ package top.bujiaban.seataat.inventory.appservice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.bujiaban.seataat.inventory.domain.ProductStorage;
-import top.bujiaban.seataat.inventory.domain.ProductStorageRepository;
+import top.bujiaban.common.inventory.domain.ProductStorage;
+import top.bujiaban.common.inventory.domain.ProductStorageRepository;
 
 @Slf4j
 @Service

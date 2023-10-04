@@ -1,8 +1,8 @@
 package top.bujiaban.seataat.inventory.interfaces;
 
 import org.springframework.web.bind.annotation.*;
+import top.bujiaban.common.inventory.domain.ProductStorage;
 import top.bujiaban.seataat.inventory.appservice.ProductStorageService;
-import top.bujiaban.seataat.inventory.domain.ProductStorage;
 
 @RestController
 @RequestMapping("/product-storage")

@@ -1,8 +1,8 @@
 rootProject.name = 'bounded-context-integration'
-include('app')
 include 'redisson'
 include 'rpc'
 include 'rpc-subscription'
 include 'mq-subscription'
 include 'seata-at'
+include 'common'
 
