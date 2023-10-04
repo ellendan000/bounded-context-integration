@@ -1,6 +1,8 @@
 package top.bujiaban.rpcsub.inventory.domain;
 
+import java.util.Optional;
+
 public interface SubscribeOrderTaskRepository {
     SubscribeOrderTask save(SubscribeOrderTask subscribeOrderTask);
-    SubscribeOrderTask findByProductId(String productId);
+    Optional<SubscribeOrderTask> findByProductId(String productId);
 }

@@ -9,10 +9,10 @@ import top.bujiaban.rpcsub.inventory.appservice.MinusStorageApplicationService;
 
 @RestController
 @RequestMapping("/minus-storage")
-public class MinusStorageController {
+public class TriggerMinusStorageController {
     private final MinusStorageApplicationService minusStorageApplicationService;
 
-    public MinusStorageController(MinusStorageApplicationService minusStorageApplicationService) {
+    public TriggerMinusStorageController(MinusStorageApplicationService minusStorageApplicationService) {
         this.minusStorageApplicationService = minusStorageApplicationService;
     }
 

@@ -1,5 +1,5 @@
 ext {
-    platformBom = 'com.ellendan.service-template:dependencies-bom:1.0.0-SNAPSHOT'
+    platformBom = 'com.ellendan.service-template:dependencies-bom:1.0.1-SNAPSHOT'
 }
 buildscript {
     repositories {
