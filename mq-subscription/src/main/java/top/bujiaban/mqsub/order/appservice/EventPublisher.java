@@ -1,8 +1,5 @@
 package top.bujiaban.mqsub.order.appservice;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
@@ -21,18 +18,19 @@ import top.bujiaban.mqsub.common.ObjectMapperHolder;
 import top.bujiaban.mqsub.order.domain.DomainEvent;
 import top.bujiaban.mqsub.order.domain.EventMessage;
 import top.bujiaban.mqsub.order.domain.EventMessageRepository;
+import top.bujiaban.mqsub.order.domain.Status;
 
 import java.util.Objects;
 
 @Slf4j
 @Component
-public class DomainEventPublisher {
+public class EventPublisher {
     private final ApplicationEventPublisher applicationEventPublisher;
     private final EventMessageRepository eventMessageRepository;
     private final RocketMQTemplate rocketMQTemplate;
 
-    public DomainEventPublisher(ApplicationEventPublisher applicationEventPublisher,
-                                EventMessageRepository eventMessageRepository, RocketMQTemplate rocketMQTemplate) {
+    public EventPublisher(ApplicationEventPublisher applicationEventPublisher,
+                          EventMessageRepository eventMessageRepository, RocketMQTemplate rocketMQTemplate) {
         this.applicationEventPublisher = applicationEventPublisher;
         this.eventMessageRepository = eventMessageRepository;
         this.rocketMQTemplate = rocketMQTemplate;
@@ -46,13 +44,18 @@ public class DomainEventPublisher {
                     .aggregationId(domainEvent.getAggregationId().toString())
                     .eventName(domainEvent.getClass().getSimpleName())
                     .data(ObjectMapperHolder.objectToJsonNode(domainEvent))
-                    .status(EventMessage.Status.CREATED)
+                    .status(Status.CREATED)
                     .build();
             eventMessageRepository.save(eventMessage);
             applicationEventPublisher.publishEvent(eventMessage);
         }else{
             applicationEventPublisher.publishEvent(domainEvent);
         }
+    }
+
+    public void republish(final EventMessage eventMessage) {
+        log.info("Republish eventMessage id: {}", eventMessage.getId());
+        applicationEventPublisher.publishEvent(eventMessage);
     }
 
     @Async
@@ -71,7 +74,7 @@ public class DomainEventPublisher {
 
         SendResult sendResult = rocketMQTemplate.syncSend("order_topic", existsEventMessage);
         if (sendResult.getSendStatus() == SendStatus.SEND_OK) {
-            existsEventMessage.setStatus(EventMessage.Status.PUBLISHED);
+            existsEventMessage.setStatus(Status.PUBLISHED);
             eventMessageRepository.save(existsEventMessage);
         } else {
             throw new RuntimeException("mq send failed");
@@ -87,7 +90,7 @@ public class DomainEventPublisher {
            return;
         }
         EventMessage existsEventMessage = eventMessageRepository.findById(eventMessage.getId()).get();
-        existsEventMessage.setStatus(EventMessage.Status.PUBLISH_FAILED);
+        existsEventMessage.setStatus(Status.PUBLISH_FAILED);
         eventMessageRepository.save(existsEventMessage);
     }
 

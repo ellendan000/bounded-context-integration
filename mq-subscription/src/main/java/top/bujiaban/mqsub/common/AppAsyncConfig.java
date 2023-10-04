@@ -17,8 +17,8 @@ public class AppAsyncConfig implements AsyncConfigurer {
         return threadPoolTaskExecutor;
     }
 
-//    @Override
-//    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-//        return null;
-//    }
+    @Override
+    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+        return new CustomAsyncExceptionHandler();
+    }
 }

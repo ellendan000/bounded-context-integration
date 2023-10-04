@@ -41,7 +41,4 @@ public class EventMessage {
     @LastModifiedDate
     private LocalDateTime lastModifiedTime;
 
-    public static enum Status {
-        CREATED, PUBLISHED, PUBLISH_FAILED
-    }
 }

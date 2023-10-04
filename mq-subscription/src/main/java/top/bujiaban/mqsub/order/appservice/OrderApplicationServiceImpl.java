@@ -25,11 +25,11 @@ public class OrderApplicationServiceImpl implements OrderApplicationService {
     private final RedissonClient redissonClient;
     private final OrderRepository orderRepository;
     private final OrderFactory orderFactory;
-    private final DomainEventPublisher domainEventPublisher;
+    private final EventPublisher domainEventPublisher;
 
     public OrderApplicationServiceImpl(InventoryFeignClient inventoryFeignClient, RedissonClient redissonClient,
                                        OrderRepository orderRepository, OrderFactory orderFactory,
-                                       DomainEventPublisher domainEventPublisher) {
+                                       EventPublisher domainEventPublisher) {
         this.inventoryFeignClient = inventoryFeignClient;
         this.redissonClient = redissonClient;
         this.orderRepository = orderRepository;
