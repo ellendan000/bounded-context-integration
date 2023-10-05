@@ -1,9 +1,8 @@
-package top.bujiaban.mqsub.inventory.appservice;
+package top.bujiaban.mqsub.inventory.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.retry.RetryException;
-import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

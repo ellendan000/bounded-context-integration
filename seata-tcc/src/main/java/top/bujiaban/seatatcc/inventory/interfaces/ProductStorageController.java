@@ -1,8 +1,8 @@
-package top.bujiaban.seataat.inventory.interfaces;
+package top.bujiaban.seatatcc.inventory.interfaces;
 
 import org.springframework.web.bind.annotation.*;
 import top.bujiaban.common.inventory.domain.ProductStorage;
-import top.bujiaban.seataat.inventory.service.ProductStorageService;
+import top.bujiaban.seatatcc.inventory.service.ProductStorageService;
 
 @RestController
 @RequestMapping("/product-storage")
@@ -23,5 +23,4 @@ public class ProductStorageController {
         return productStorageService.minusStorageByNewOrder(minusStorageRequest.getProductId(),
                 minusStorageRequest.getQuantity());
     }
-
 }

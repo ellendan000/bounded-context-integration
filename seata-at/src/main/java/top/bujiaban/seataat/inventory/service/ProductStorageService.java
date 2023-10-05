@@ -1,4 +1,4 @@
-package top.bujiaban.seataat.inventory.appservice;
+package top.bujiaban.seataat.inventory.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

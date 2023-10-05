@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.bujiaban.common.inventory.domain.ProductStorage;
-import top.bujiaban.rpcsub.inventory.appservice.MinusStorageApplicationService;
+import top.bujiaban.rpcsub.inventory.service.MinusStorageApplicationService;
 
 @RestController
 @RequestMapping("/minus-storage")

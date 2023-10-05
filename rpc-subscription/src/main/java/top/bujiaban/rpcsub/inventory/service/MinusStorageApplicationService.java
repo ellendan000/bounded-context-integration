@@ -1,4 +1,4 @@
-package top.bujiaban.rpcsub.inventory.appservice;
+package top.bujiaban.rpcsub.inventory.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,14 +34,18 @@ public class MinusStorageApplicationService {
 
     @Transactional(rollbackFor = Throwable.class)
     public ProductStorage minusStorageByOrders(String productId) {
-        SubscribeOrderTask subscribeOrderTask = subscribeOrderTaskRepository.findByProductId(productId);
-        if(subscribeOrderTask == null) {
+        Optional<SubscribeOrderTask> subscribeOrderTaskOptional = subscribeOrderTaskRepository.findByProductId(productId);
+        SubscribeOrderTask subscribeOrderTask = null;
+
+        if(subscribeOrderTaskOptional.isEmpty()) {
             subscribeOrderTask = SubscribeOrderTask.builder()
                     .productId(productId)
                     .timestamp(Instant.now().truncatedTo(ChronoUnit.DAYS).toEpochMilli())
                     .currentPage(1)
                     .pageSize(100)
                     .build();
+        } else {
+            subscribeOrderTask = subscribeOrderTaskOptional.get();
         }
 
         List<InventoryOrder> orderList = orderFeignClient.subscribeNewOrders(SubscribeOrderRequest

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.bujiaban.mqsub.order.appservice.EventPublisher;
+import top.bujiaban.mqsub.order.service.EventPublisher;
 import top.bujiaban.mqsub.order.domain.EventMessage;
 import top.bujiaban.mqsub.order.domain.EventMessageRepository;
 import top.bujiaban.mqsub.order.domain.Status;

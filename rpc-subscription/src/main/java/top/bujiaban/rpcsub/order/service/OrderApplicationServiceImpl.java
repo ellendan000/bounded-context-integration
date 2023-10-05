@@ -1,4 +1,4 @@
-package top.bujiaban.rpcsub.order.appservice;
+package top.bujiaban.rpcsub.order.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;

@@ -1,4 +1,4 @@
-package top.bujiaban.seataat;
+package top.bujiaban.seatatcc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,13 +7,13 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableFeignClients(basePackages = {"top.bujiaban.common", "top.bujiaban.seataat"})
+@EnableFeignClients(basePackages = {"top.bujiaban.common", "top.bujiaban.seatatcc"})
 @EnableJpaAuditing
-@EntityScan(basePackages = {"top.bujiaban.common", "top.bujiaban.seataat"})
-@EnableJpaRepositories(basePackages = {"top.bujiaban.common", "top.bujiaban.seataat"})
-@SpringBootApplication(scanBasePackages = {"top.bujiaban.common", "top.bujiaban.seataat"})
-public class SeataATApp {
+@EntityScan(basePackages = {"top.bujiaban.common", "top.bujiaban.seatatcc"})
+@EnableJpaRepositories(basePackages = {"top.bujiaban.common", "top.bujiaban.seatatcc"})
+@SpringBootApplication(scanBasePackages = {"top.bujiaban.common", "top.bujiaban.seatatcc"})
+public class SeataTccApp {
     public static void main(String[] args) {
-        SpringApplication.run(SeataATApp.class, args);
+        SpringApplication.run(SeataTccApp.class, args);
     }
 }

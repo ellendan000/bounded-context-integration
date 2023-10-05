@@ -1,4 +1,4 @@
-package top.bujiaban.mqsub.inventory.appservice;
+package top.bujiaban.mqsub.inventory.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;

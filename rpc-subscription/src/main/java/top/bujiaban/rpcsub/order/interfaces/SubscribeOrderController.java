@@ -2,7 +2,7 @@ package top.bujiaban.rpcsub.order.interfaces;
 
 import org.springframework.web.bind.annotation.*;
 import top.bujiaban.common.order.interfaces.OrderResponse;
-import top.bujiaban.rpcsub.order.appservice.OrderApplicationServiceImpl;
+import top.bujiaban.rpcsub.order.service.OrderApplicationServiceImpl;
 
 import java.util.List;
 import java.util.Objects;

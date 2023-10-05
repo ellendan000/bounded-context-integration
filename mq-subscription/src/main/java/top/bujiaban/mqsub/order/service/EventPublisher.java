@@ -1,4 +1,4 @@
-package top.bujiaban.mqsub.order.appservice;
+package top.bujiaban.mqsub.order.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendResult;

@@ -5,4 +5,5 @@ include 'rpc-subscription'
 include 'mq-subscription'
 include 'seata-at'
 include 'common'
+include 'seata-tcc'
 

@@ -1,4 +1,4 @@
-package top.bujiaban.redisson.order.appservice;
+package top.bujiaban.redisson.order.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RAtomicLong;
