@@ -6,4 +6,5 @@ include 'mq-subscription'
 include 'seata-at'
 include 'common'
 include 'seata-tcc'
+include 'seata-saga'
 
